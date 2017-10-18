@@ -1,0 +1,94 @@
+
+ Props to pass data to components.
+Props are read only (immutable).
+
+What happens if I need to keep track of data that can change?
+
+This is where state comes in.
+
+1) Initial State
+2) Call this.setState to change the state
+3) A way to display or use that state.
+
+
+ this.setState({
+  actionCount: this.state.actionCount + 1
+});
+
+
+// Functional form of setState
+this.setState((state, props) => {
+  return {
+    actionCount: this.state.actionCount + 1
+  };
+});
+
+// Callback functional setState
+const newValue = this.state.actionCount + 1;
+this.setState({ actionCount: newValue }, function() {
+  console.log(this.state.actionCount);
+});
+
+
+
+ {
+  score: 7,
+  user: {
+    name: 'someone',
+    age: 26
+  },
+  products:[ /*...*/]
+}
+
+And then you do this.setState({score: 42 }). The new state will be:
+
+{
+  score: 42, // new
+  user: {
+    name: 'someone',
+    age: 26
+  },
+  products:[ /*...*/]
+}
+
+if instead you do:
+this.setState({ user: {age: 4 }}) Then you get this:
+
+{
+  score: 42, // unchanged
+  user: {
+    age: 4  // no more name
+  },
+  products:[ /*...*/]
+}
+
+
+Events
+html: onclick, onsubmit, ondblclick
+React: onClick, onSubmit, onDoubleClick
+
+The react events are not native browser events, they are synthetic
+ events managed by React
+
+
+stopPropagation, preventDefault
+
+The event object that is passed to a handler function, is
+only valid at the moment.
+
+  What to put in state?
+  General Rule:
+data that is stored in state, should be referenced inside render somewhere.
+It's mainly for storing UI state.
+state => UI
+
+If modifying a piece of data does not visually change the component, the data should not go into state.
+
+- User-entered input(values of textboxes, and other form fields)
+- Current or selected item(the current tab, the selected row, selected button)
+- Data from the server(a list of products, the number of 'likes' on a page)
+- Open/Closed state(modal open/closed, sidebar expanded/hidden)
+
+Stateful data, like handles to timers, should be stored on the component
+instance itself. Class components classes you have this object available.
+ Use that for these types of data.
